@@ -1,0 +1,83 @@
+<%#<h1>HOME</h1> <%# コメントアウトコピペ用 %>
+<%#<h2><%= @article.title %></h2> <%#homecontroller内のメソッドで定義されたインスタンス変数%>
+<%#<h2><%= @article.content %></h2> <%#データベースのtitleとcontentの行からデータを取り出してHTMLとして表示する%>
+
+<%# <%= link_to 'About', about_path %>
+<%# link_toはaタグを生成、about_pathはURLを生成するメソッド。rubyのメソッドを実行するための囲いで挟む%>
+
+<%#-----------------------------------↑DAY８での処理を邪魔しないようにコメントアウト%>
+
+<%#----↓DAY８処理%>
+
+<h1>HOME</h1>
+<h2><%= @article.title %></h2>
+<h2><%= @article.content %></h2>
+<div class="container">
+  <div class="tabs">
+    <div class="tabs_item active">
+      新着記事一覧
+    </div>
+    <div class="tabs_item">
+      タイムライン
+    </div>
+  </div>
+
+<%= link_to 'About', about_path %>
+  <div class="card">
+    <div class="card_image">
+      <%= image_tag 'eyecatch1.png' %>
+    </div>
+    <div class="card_content">
+      <div class="card_heart">
+        <%= image_tag 'heart.svg' %>
+        <span>23</span>
+      </div>
+      <div class="card_detail">
+        <%= image_tag 'default-avatar.png' %>
+        <div>
+          <p>cohki0305</p>
+          <p>2020/4/16</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card_image">
+      <%= image_tag 'eyecatch2.png' %>
+    </div>
+    <div class="card_content">
+      <div class="card_heart">
+        <%= image_tag 'heart.svg' %>
+        <span>23</span>
+      </div>
+      <div class="card_detail">
+        <%= image_tag 'default-avatar.png' %>
+        <div>
+          <p>cohki0305</p>
+          <p>2020/4/16</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card_image">
+      <%= image_tag 'eyecatch2.png' %>
+    </div>
+    <div class="card_content">
+      <div class="card_heart">
+        <%= image_tag 'heart.svg' %>
+        <span>23</span>
+      </div>
+      <div class="card_detail">
+        <%= image_tag 'default-avatar.png' %>
+        <div>
+          <p>cohki0305</p>
+          <p>2020/4/16</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+Footer

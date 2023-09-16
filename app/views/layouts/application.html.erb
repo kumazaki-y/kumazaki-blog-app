@@ -4,13 +4,25 @@
     <title>KumazakiBlogApp</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%#↓railsはapplication.scssだけを読み込むため、他のscssはapplicationのシートに@importを記述して集約させている%>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width,initial-acale=1,0">
   </head>
 
 
   <body>  <%# すべてのページに共通の影響を与える。ヘッダーやフッターを主に書く %>
+    <header class="header">
+      <p class="header_pageTitle">新着記事</p>
+      <div class="dropdown">
+        <%= image_tag 'default-avatar.png', class: 'header_avatar dropbtn'%> <%#htmlとは違い、画像はRubyのメソッドで表示する %>
+        <%#入れ方はターミナルで「open .」を実行しrailsのディレクトリを開く→画像をapp>assets>imagesのディレクトリに入れる。 %>
+          <div class="dropdown-content">
+          <a href="#">プロフィール</a>
+          <a href="#">ログアウト</a>
+          </div>
+      </div>
+    </header>
     <%= yield %> <%#indexやaboutのページを読み込んでいる %>
   </body>
 </html>
