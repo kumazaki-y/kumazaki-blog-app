@@ -1,6 +1,7 @@
 class HomeController < ApplicationController #APから継承
     def index #railsで定義されているメソッド。様々な処理を内包する。
-        @title = "デイトラ" #インスタンス変数。本メソッドを実行して表示されるerb内で使用可能
+        @article = Article.first #インスタンス変数。indexメソッドを実行して表示されるerb内で使用可能
+        #Articleモデルのデータベースからデータを取得するメソッド
     end
 
     def about
