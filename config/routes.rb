@@ -8,7 +8,9 @@ Rails.application.routes.draw do #
   #↑ブラウザからサーバーへゲットリクエストが来た時にhomecontrollerのindexメソッドを実行。rootがあるのでコメントアウト
    get '/about' => 'home#about' #同上でaboutメソッドを実行
 
-  resources :articles, only: [:show]
-  #URLを作成する機能。onlyを書くと、様々なURLが作成されるがその中でshowだけを使用する意味になる
+  resources :articles, only: [:show, :new, :create]
+  #resourcesはURLを作成する機能。onlyを書くと、様々な機能のURLが作成されるがその中で指定したものだけを使用する意味になる
+  #それぞれarticles_controllerの同名メソッドが実行され、
+  #newは新しい投稿を作成するためのフォームとしてrailsのCRUDに含まれている
 end
 

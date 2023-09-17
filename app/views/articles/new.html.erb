@@ -1,0 +1,25 @@
+<div class="container">
+    <ul>
+        <% @article.errors.full_messages.each do |message| %> <%# エラー文をすべて配列で取得し個別に表示する処理をリストで実行%>
+            <li><%= message %></li><%# full_messagesで表示される文言はvalidatesの種類により自動で設定される%>
+        <% end %>
+    </ul>
+
+                        <%#form_withで投稿画面を作る。情報を入れるモデルはインスタンス変数で空のArticleモデルを指定。
+                        新着記事を表示したいページのpathをurlに指定。メソッドは情報を記録するpostを指定。local:trueはform_withを作る時には付けておく%>
+    <%= form_with(model: @article, url: articles_path, method: 'post', local: true) do |f| %>
+        <div>
+            <%= f.label :title, 'タイトル' %> <%# fはformの略。ラベルは日本語でのタイトル表示を文字列で入れる。:titleは下のカラム名と対応させている%>
+        </div>
+        <div>
+            <%= f.text_field :title, class: 'text' %> <%# .text_fieldでHTMLのinputタグが自動で作られる。:titleはデータ登録する際のカラム名%>
+        </div>
+        <div>
+            <%= f.label :content, '内容' %> <%# 上のラベルと同じ%>
+        </div>
+        <div>
+            <%= f.text_area :content %> <%# これもテキストエリアが自動で作られる。フォームを作るためのこれらのメソッドをフォームヘルパーと呼ぶ%>
+        </div>
+        <%= f.submit '保存', class: 'btn-primary' %> <%# 送信ボタンが自動で作られる%>
+    <% end %>
+</div>
