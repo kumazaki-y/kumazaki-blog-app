@@ -22,6 +22,10 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'faker' #記述後、ターミナルで「bundle install」を実行するとfakerツールをインストールできる
+#gemとは 先人の作った便利なツール（ライブラリー）。githubに使い方など書かれている。
+#gemfile.lockのファイルでgemのバージョンを管理して、特定のバージョンしか使えないようにロックされている。
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
