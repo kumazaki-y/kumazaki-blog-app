@@ -6,6 +6,9 @@ Rails.application.routes.draw do #
 
   #get '/' => 'home#index'
   #↑ブラウザからサーバーへゲットリクエストが来た時にhomecontrollerのindexメソッドを実行。rootがあるのでコメントアウト
-  get '/about' => 'home#about' #同上でaboutメソッドを実行
+   get '/about' => 'home#about' #同上でaboutメソッドを実行
+
+  resources :articles, only: [:show]
+  #URLを作成する機能。onlyを書くと、様々なURLが作成されるがその中でshowだけを使用する意味になる
 end
 
