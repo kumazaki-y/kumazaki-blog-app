@@ -8,6 +8,8 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width,initial-acale=1,0">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <%#↑アイコン等を読み込むツール。フォントオーサム%>
   </head>
 
 
@@ -23,6 +25,13 @@
           </div>
       </div>
     </header>
+    <% if flash.present? %> <%# present?は値がnilじゃなければtrueになる処理。今回はflashに値が入っていればif文が実行される%>
+      <div class="flash"><%#↓flashはハッシュなのでeachする時にキーとバリューを取得できる。今回はac_rbタブのnoticeとerrorがキーになっている%>
+        <% flash.each do |key, value| %> 
+          <div class="<%= key %>"><%= value %></div>
+        <% end %>
+      </div>
+    <% end %>
     <%= yield %> <%#indexやaboutのページを読み込んでいる %>
   </body>
 </html>
