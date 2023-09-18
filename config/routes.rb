@@ -8,9 +8,12 @@ Rails.application.routes.draw do #
   #↑ブラウザからサーバーへゲットリクエストが来た時にhomecontrollerのindexメソッドを実行。rootがあるのでコメントアウト
    get '/about' => 'home#about' #同上でaboutメソッドを実行
 
-  resources :articles, only: [:show, :new, :create]
+  resources :articles, only: [:show, :new, :create, :edit, :update]
   #resourcesはURLを作成する機能。onlyを書くと、様々な機能のURLが作成されるがその中で指定したものだけを使用する意味になる
-  #それぞれarticles_controllerの同名メソッドが実行され、
+  #それぞれarticles_controllerの同名メソッドが実行される
   #newは新しい投稿を作成するためのフォームとしてrailsのCRUDに含まれている
+  #updateを実行すると「localhost:3000/rails/info/routes」ページのarticle_pathにPUTとPATCHリクエストが追加される。
+  #PUTとPATCHのURLは共にGETリクエストと同じだが、URLは同じでもリクエスト内容が異なるのでサーバー側での挙動も異なる。
+  #GETは取得、PUTは更新（または作成）、PATCHは部分更新、DELETEは削除
 end
 
