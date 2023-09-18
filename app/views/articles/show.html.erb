@@ -10,7 +10,8 @@
       <div class="dropdown">
         <%= image_tag 'actions.svg', class: 'dropbtn' %>
         <div class="dropdown-content mini">
-          <a href="#">編集する</a>
+        <%= link_to '編集する', edit_article_path(@article) %> <%#editの場合は引数に要ID。
+                                              ここでの@articleはcontrollerで定義されたインスタンス変数。DBから該当IDのデータだけ抽出している%>
         </div>
       </div>
     </div>

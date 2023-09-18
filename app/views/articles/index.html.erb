@@ -12,7 +12,7 @@
   </div>
 
   <% @articles.each do |article| %> <%# rubyのメソッドを埋め込むが、表示不要なので%=にしない。＝を入れると表示されてしまう%>
-    <%= link_to article_path(article) do %> <%#link_to~endでcardを囲むと投稿全体がリンクになる。
+    <%= link_to article_path(article) do %> <%#link_to~endでcardを囲むと投稿全体がリンクになる。ここでのarticleはeach内で定義されたローカル変数
                                                 パスの指定は（id:article.id）とすることも可。リンク先のIDはarticleモデルDBのIDということ%>
       <div class="card">
         <div class="card_image">
