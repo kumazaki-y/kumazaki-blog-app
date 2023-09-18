@@ -12,6 +12,11 @@
         <div class="dropdown-content mini">
         <%= link_to '編集する', edit_article_path(@article) %> <%#editの場合は引数に要ID。
                                               ここでの@articleはcontrollerで定義されたインスタンス変数。DBから該当IDのデータだけ抽出している%>
+
+        <%= link_to '削除する', article_path(@article), data: { method: 'delete', confirm: '本当に削除してもよろしいですか？' } %>
+            <%# dateを指定しないとlink_to実行時は通常GETリクエストが送信されるルール（削除しても削除したページへの遷移を依頼していることになる）。
+            HTTPメソッドをdataのハッシュで指定。PUT・POST・DELETEなど指定できる。
+            confirmで削除前に警告文が出るように設定%>
         </div>
       </div>
     </div>
