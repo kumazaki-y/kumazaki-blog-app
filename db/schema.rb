@@ -10,13 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_16_024051) do
-
-  create_table "articles", force: :cascade do |t| #データベースの内容を確認できるファイル。これらはメモ書きのようなもので、編集しても実際のデータベースに影響はない。
-    t.string "title"
-    t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+ActiveRecord::Schema.define(version: 20_230_916_024_051) do
+  create_table 'articles', force: :cascade do |t|
+    t.string 'title'
+    t.text 'content'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
-
 end
