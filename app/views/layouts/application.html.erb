@@ -15,7 +15,15 @@
 
   <body>  <%# すべてのページに共通の影響を与える。ヘッダーやフッターを主に書く %>
     <header class="header">
-      <p class="header_pageTitle">新着記事</p>
+      <div class="header_logos">
+        <% if !current_page?(root_path) %> <%#トップページで戻るボタンを表示させない処理。もしroot_path以外を表示していたら下記を実行する。
+                                              ！を抜かすとroot_pathを表示していたら下記を実行することになる。！の有無に注意%>
+          <%= link_to :back do %> <%# railsに用意されている戻るボタンのリンクを貼る%>
+            <%= image_tag 'back.svg', class: 'header_back' %> <%# 戻るボタンのアイコン%>
+          <% end %>
+        <% end %>
+        <p class="header_pageTitle">BlogApp</p>
+      </div>
       <div class="dropdown">
         <%= image_tag 'default-avatar.png', class: 'header_avatar dropbtn'%> <%#htmlとは違い、画像はRubyのメソッドで表示する %>
         <%#入れ方はターミナルで「open .」を実行しrailsのディレクトリを開く→画像をapp>assets>imagesのディレクトリに入れる。 %>
