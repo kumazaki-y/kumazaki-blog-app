@@ -1,0 +1,32 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  DisabledByDefault: true
+  Exclude:
+    - db/schema.rb
+    - vendor/bundle/**/*
+    - node_modules/**/*
+
+Bundler/OrderedGems:
+  Enabled: true
+
+Layout/EmptyLines:
+  Enabled: true
+
+Layout/TrailingEmptyLines:
+
+  Enabled: true
+
+Layout/TrailingWhitespace:
+  Enabled: true
+
+Style/MethodDefParentheses:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: single_quotes
+
+  #コード修正の基準を記述。
+  #ターミナルで「bundle exec rubocop」を実行するとチェックが入る。「bundle exec rubocop -a」を実行すると基準に合ってないコードをほぼ自動で修正してくれる。
