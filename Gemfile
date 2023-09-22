@@ -29,6 +29,8 @@ gem 'faker' # 記述後、ターミナルで「bundle install」を実行する�
 gem 'annotate' # データベースの内容を取り込んでarticle.rbにコメントで表示するライブラリ。
 gem 'hamlit' # hamlを読み込みrailsで記述できるようにする。
 # 記述後にターミナルで「bundle install」「rails g annotate:install」「rails db:migrate」の順に実行
+
+gem 'devise'
 # gemのインストール、railsでの設定、DBからデータを取得をそれぞれ行っている
 
 # Use Active Storage variant
