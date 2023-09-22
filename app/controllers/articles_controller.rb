@@ -1,7 +1,9 @@
 class ArticlesController < ApplicationController # APから継承。DAY８の処理でhomecontrolle→articlescontrollerに変更（名称は基本的に複数形）。
-  before_action :set_article, only: %i[show edit update]
+  before_action :set_article, only: [:show, :edit, :update]
   # 繰り返し使用するコードを自動で各メソッドの一番最初に定義するアクション。onlyで特定のメソッドだけに適用できる。
   # 繰り返したいコードはset_articleメソッド内に定義しておく。
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  #ログインしていないとすべてのアクションが行えなくなる処理。onlyでどの行為を制限するか指定できる。
 
   def index # railsで定義されているメソッド。様々な処理を内包する。
     @articles = Article.all # インスタンス変数。indexメソッドを実行して表示されるerb内で使用可能。.firstなら1個目、.allなら全てのデータを取得
