@@ -15,7 +15,9 @@ class ArticlesController < ApplicationController # APから継承。DAY８の処
   # DAY８追加コメント（indexのrenderではself/indexのような形になってる気がする。だからindexで呼び出すディレクトリ名も変える必要がある）
   # end
 
-  def show # ↓before_actionを設定しているので不要。
+  def show
+    @comments = @article.comments #beforeアクションで定義されている@articleを使い、インスタンスに取得した記事とコメントを紐付けて代入
+    #↓before_actionを設定しているので不要。
     # @article = Article.find(params[:id]) #ArticleモデルDBから指定されたIDのデータを取得する。paramsはパラメータ的な意味。:idと記載するルール
   end
 

@@ -26,6 +26,7 @@ class Article < ApplicationRecord
 
   validate :validat_title_and_content_length #独自に検証機能をつける場合は「validate」で実装する。複数形でないことに注意。検証内容は別に要定義
 
+  has_many :comments, dependent: :destroy
   belongs_to :user #記事はユーザーに紐付けられている、というような意味。記事から見たユーザーは一人なので単数系で書く。
 
   # ArticleテーブルのDBからデータがcreateされた時間を取得し表示。
