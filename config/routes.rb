@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   # PUTとPATCHのURLは共にGETリクエストと同じだが、URLは同じでもリクエスト内容が異なるのでサーバー側での挙動も異なる。
   # GETは取得、PUTは更新（または作成）、PATCHは部分更新、DELETEは削除
   # destroyの追加でDELETEリクエストが追加される。
+
+  resource :profile, only: [:show, :edit, :update] #プロフィールは一人一つなので単数で作成。URLもindexが作成されない。
 end
