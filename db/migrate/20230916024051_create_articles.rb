@@ -1,6 +1,6 @@
 class CreateArticles < ActiveRecord::Migration[6.0] # DBはターミナルでMigrationを実行し行や列の形を変更。記録が残りチーム開発しやすい
   def change
-    create_table :articles do |t| # ターミナルで実行したコードによりテーブルが作られる。
+    create_table :articles do |t| # ターミナルで実行したコードによりファイルが自動で作られる。
       t.references :user, null: false #ユーザーIDが存在しないと絶対記事を作れない処理。validationはあくまでアクティブレコードに対する制限なので、DB側に制限をかける方が安心。
       t.string :title, null: false # テーブルに追加したいカラムを書く。tはtextの略。stringは短い文字列を保存する
       t.text :content, null: false # textは長い文字列を保存する
