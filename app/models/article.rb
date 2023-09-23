@@ -7,6 +7,11 @@
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  user_id    :integer
+#
+# Indexes
+#
+#  index_articles_on_user_id  (user_id)
 #
 class Article < ApplicationRecord
   validates :title, length: { minimum: 2, maximum: 100 } #文字の長さを検証。今回は二文字以上でないと登録できない
@@ -21,13 +26,20 @@ class Article < ApplicationRecord
 
   validate :validat_title_and_content_length #独自に検証機能をつける場合は「validate」で実装する。複数形でないことに注意。検証内容は別に要定義
 
-  # ArticleモデルのDBからデータがcreateされた時間を取得し表示。
+  belongs_to :user #記事はユーザーに紐付けられている、というような意味。記事から見たユーザーは一人なので単数系で書く。
+
+  # ArticleテーブルのDBからデータがcreateされた時間を取得し表示。
   # I18nにより国際化し、ja.ymlファイルで指定したdefaultの仕様で各国の時間表記に合わせて表示できる
   # というメソッドを作成しておくとerbやコントローラで呼び出せる（MVCのルールによって）。コントローラにはリクエストが来た際に実行するメソッドを書いておく。
   # モデルにはリクエストが来なくとも常に実行する繰り返しメソッドを書いておくと管理しやすい（コントローラに集約させるとコード読みづらい）。
   def display_created_at
     I18n.l(created_at, format: :default)
   end
+
+  def author_name #haml側での記述量を減らすためにメソッド作成
+    user.display_name
+  end
+
 
   private
   def validat_title_and_content_length

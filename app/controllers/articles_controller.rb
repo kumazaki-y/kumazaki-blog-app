@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController # APから継承。DAY８の処理でhomecontrolle→articlescontrollerに変更（名称は基本的に複数形）。
-  before_action :set_article, only: [:show, :edit, :update]
+  before_action :set_article, only: [:show]
   # 繰り返し使用するコードを自動で各メソッドの一番最初に定義するアクション。onlyで特定のメソッドだけに適用できる。
   # 繰り返したいコードはset_articleメソッド内に定義しておく。
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
@@ -20,11 +20,13 @@ class ArticlesController < ApplicationController # APから継承。DAY８の処
   end
 
   def new
-    @article = Article.new # Articleモデルにnewを行い、中身が空のデータを新しく作る。既存の機能でrenderを実行しなくともnew.html.erbを探し表示させる。
+    @article = current_user.articles.build #現在ログインしているユーザーと記事を紐付けて空のデータを作る際の書き方
+    # @article = Article.new # Articleモデルにnewを行い、中身が空のデータを新しく作る。既存の機能でrenderを実行しなくともnew.html.erbを探し表示させる。
   end
 
   def create
-    @article = Article.new(article_params) # データが空の箱を作る。引数で箱にはtitleとcontentを入れるスペースがある。
+    @article = current_user.articles.build(article_params)#現在ログインしているユーザーと記事を紐付けて空のデータを作る際の書き方
+    # @article = Article.new(article_params) # データが空の箱を作る。引数で箱にはtitleとcontentを入れるスペースがある。
     if @article.save # 作成したデータを保存するメソッド。保存できたかを確認するためif文で保存できたらその投稿のページに遷移するようにする
       redirect_to article_path(@article), notice: '保存できたよ' # noticeと文字列はflashメッセージのキーとバリュー
     # ↑指定したpathのページに遷移するメソッド。article_pathと引数で記事の該当ページへの遷移を指定。noticeで遷移時の文言を指定（HTMLにも要記載）
@@ -35,11 +37,15 @@ class ArticlesController < ApplicationController # APから継承。DAY８の処
     end
   end
 
-  def edit # ↓before_actionを設定しているので不要。
+  def edit
+    @article = current_user.articles.find(params[:id])#現在ログインしているユーザーの記事の中から指定したIDの記事を探す。
+    #ログイン中のユーザーに限定しないと、他人の記事を探して編集できてしまうので注意
     # @article = Article.find(params[:id]) #DBからparamsのIDに該当する情報を抜き出す。ID１なら１記事目の編集画面が出るようにedit.html.erbを作成
   end
 
-  def update # ↓before_actionを設定しているので不要。
+  def update
+    @article = current_user.articles.find(params[:id])#現在ログインしているユーザーの記事の中から指定したIDの記事を探す。
+    #ログイン中のユーザーに限定しないと、他人の記事を探して編集できてしまうので注意
     # @article = Article.find(params[:id]) #リクエスト時のURLにidが記載されているため、サーバー側で該当IDを受け取ることができる。
     # 受け取ったそのIDがparamsに反映される。反映されたidに該当するデータを抜き出す
     if @article.update(article_params) # 値を更新するメソッド。article_paramでどの値を更新するか決める。今回はtitleとcontentが指定されている
@@ -52,7 +58,7 @@ class ArticlesController < ApplicationController # APから継承。DAY８の処
 
   def destroy # 本メソッド内のarticleはメソッド内だけで処理が完結しており、erbに記述する必要がないのでインスタンス変数にはしない。
     # インスタンス変数にしてしまうとrailsに慣れた人に「もしかしてerbに記載しているのかな？」と誤解させてしまう可能性が高いため。
-    article = Article.find(params[:id]) # 削除したいデータを取得
+    article = current_user.articles.find(params[:id]) # 現在ログインしているユーザーの削除したいデータを取得
     article.destroy! # データを削除するメソッド。！は無くても実行可。！あると処理が完了しなかった場合に例外が発生しエラーになる
     redirect_to root_path, notice: '削除に成功しました' # 削除したら記事一覧に戻り、通知を出す
   end

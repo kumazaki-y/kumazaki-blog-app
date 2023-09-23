@@ -12,8 +12,18 @@
 # Article.create(title:'素晴らしい記事',content:'すごい記事です') #これを記述後、ターミナルで「rails db:seed」を実行すると本ファイルの処理が実行される
 # ↑fakerを使うためコメントアウト
 
-10.times do # 下記の処理を10回行う
-  Article.create(
+jon = User.create!(email: 'kamakama@example.com', password: 'password') #ダミーユーザーを作成。！をつければ処理が止まった際にエラーになる
+emily = User.create!(email: 'motimoti@example.com', password: 'password')
+
+5.times do # 下記の処理を10回行う
+  jon.articles.create!(
+    title: Faker::Lorem.sentence(word_count: 5), # 長文を作るメソッド（引数に単語数を指定）。fakerのサイトからコピペ可能
+    content: Faker::Lorem.sentence(word_count: 100) # 本記述後にターミナルで「rails db:seed」を実行すると本記述が処理される
+  )
+end
+
+5.times do # 下記の処理を10回行う
+  emily.articles.create!(
     title: Faker::Lorem.sentence(word_count: 5), # 長文を作るメソッド（引数に単語数を指定）。fakerのサイトからコピペ可能
     content: Faker::Lorem.sentence(word_count: 100) # 本記述後にターミナルで「rails db:seed」を実行すると本記述が処理される
   )
