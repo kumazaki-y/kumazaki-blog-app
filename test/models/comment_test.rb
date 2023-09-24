@@ -1,21 +1,20 @@
 # == Schema Information
 #
-# Table name: articles
+# Table name: comments
 #
 #  id         :bigint           not null, primary key
 #  content    :text             not null
-#  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  article_id :bigint           not null
 #
 # Indexes
 #
-#  index_articles_on_user_id  (user_id)
+#  index_comments_on_article_id  (article_id)
 #
 require 'test_helper'
 
-class ArticleTest < ActiveSupport::TestCase
+class CommentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
