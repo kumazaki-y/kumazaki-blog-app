@@ -27,7 +27,9 @@ class Article < ApplicationRecord
   validate :validat_title_and_content_length #独自に検証機能をつける場合は「validate」で実装する。複数形でないことに注意。検証内容は別に要定義
 
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy #記事から見たら中間テーブルのいいねは複数対象なのでこの書き方で紐付け
   belongs_to :user #記事はユーザーに紐付けられている、というような意味。記事から見たユーザーは一人なので単数系で書く。
+  has_one_attached :eyecatch #記事に画像UPできるメソッドを定義
 
   # ArticleテーブルのDBからデータがcreateされた時間を取得し表示。
   # I18nにより国際化し、ja.ymlファイルで指定したdefaultの仕様で各国の時間表記に合わせて表示できる
@@ -41,6 +43,9 @@ class Article < ApplicationRecord
     user.display_name
   end
 
+  def like_count
+    likes.count #has_many:likesしているのでlikeテーブル情報を取得し、数を数える。
+  end
 
   private
   def validat_title_and_content_length

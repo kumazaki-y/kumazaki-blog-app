@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :articles do
     resources :comments, only: [:new, :create] #入れ子にすることでarticles/comenntsのようなURLを作れる。
-  end # , only: [:show, :new, :create, :edit, :update, :destroy]
+  # , only: [:show, :new, :create, :edit, :update, :destroy]
   # ↑onlyで限定していたが、最終的にindex以外はすべて使っているのでonly不要。refactoring（コードの整理）作業によりコメントアウト
   # resourcesはURLを作成する機能。onlyを書くと、様々な機能のURLが作成されるがその中で指定したものだけを使用する意味になる
   # それぞれarticles_controllerの同名メソッドが実行される
@@ -21,5 +21,8 @@ Rails.application.routes.draw do
   # GETは取得、PUTは更新（または作成）、PATCHは部分更新、DELETEは削除
   # destroyの追加でDELETEリクエストが追加される。
 
+    resource :like, only: [:create, :destroy] #destroyのしやすさ重視で単数。いいねは中間テーブルに新たなデータを作る作業なのでcreate。
+end
   resource :profile, only: [:show, :edit, :update] #プロフィールは一人一つなので単数で作成。URLもindexが作成されない。
+  resources :favorites, only: [:index]
 end
