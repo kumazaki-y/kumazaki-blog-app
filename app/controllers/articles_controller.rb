@@ -69,7 +69,7 @@ class ArticlesController < ApplicationController # APから継承。DAY８の処
 
   def article_params # ブラウザ側からサーバーに送られるデータ（パラメーター）のうち、何を保存するか選択するメソッドを作成する。
     # _paramsの前は更新するモデル名に合わせるルール。今回はArticleモデルのデータを更新する
-    params.require(:article).permit(:title, :content)
+    params.require(:article).permit(:title, :content, :eyecatch)
     # 送られたデータはハッシュの形になっているので、その中のキーがarticleのデータだけ読み込み、さらにデータのtitleとcontentだけ保存を許可する処理
     # ブラウザ側から不正なデータを送られて保存してしまわないようにセキュリティ上かなり重要
   end
