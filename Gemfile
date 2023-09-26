@@ -6,7 +6,7 @@ ruby '2.7.7'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+gem 'pg', '>= 0.18', '< 2.0'#SQLite3から変更。
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -33,6 +33,8 @@ gem 'hamlit' # hamlを読み込みrailsで記述できるようにする。
 gem 'devise'
 # gemのインストール、railsでの設定、DBからデータを取得をそれぞれ行っている
 
+gem 'aws-sdk-s3', require: false #AWSにアップロードできるようになる
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -47,6 +49,7 @@ group :development, :test do
   gem 'better_errors'#エラーメッセージを見やすくするライブラリ
   gem 'binding_of_caller'#エラーメッセージの画面でconsoleを実行できるようになるライブラリ
   gem 'rubocop-rails' # ターミナルで「bundle install」後、vendorディレクトリに.rubocop.ymlを作成。そこにコードチェックの基準を記述する。
+  gem 'dotenv-rails' #環境変数について設定するライブラリ。configのappファイルにも設定記述が必要。
 end
 
 group :development do

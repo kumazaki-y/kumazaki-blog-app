@@ -11,6 +11,11 @@ module KumazakiBlogApp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    if Rails.env.development? || Rails.env.test? #開発とテスト環境の時だけ下記を実行。環境変数に関する設定。
+      Bundler.require(*Rails.groups)
+      Dotenv::Railtie.load
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
