@@ -3,7 +3,6 @@
 # Table name: articles
 #
 #  id         :bigint           not null, primary key
-#  content    :text             not null
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -30,6 +29,7 @@ class Article < ApplicationRecord
   has_many :likes, dependent: :destroy #記事から見たら中間テーブルのいいねは複数対象なのでこの書き方で紐付け
   belongs_to :user #記事はユーザーに紐付けられている、というような意味。記事から見たユーザーは一人なので単数系で書く。
   has_one_attached :eyecatch #記事に画像UPできるメソッドを定義
+  has_rich_text :content #contentに対してAction textを使えるようにする設定
 
   # ArticleテーブルのDBからデータがcreateされた時間を取得し表示。
   # I18nにより国際化し、ja.ymlファイルで指定したdefaultの仕様で各国の時間表記に合わせて表示できる
