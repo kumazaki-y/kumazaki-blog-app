@@ -31,3 +31,10 @@
 .byebug_history
 .env
 # ここに書いたファイルはGit上で無視される。環境変数は見せちゃいけないので.envを記述
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
