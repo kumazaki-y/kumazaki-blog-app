@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # rootは”/”を意味する。特に指定がなければhomecontrollerのindexメソッドを実行。
   # また、html.erbでroot_pathメソッドを実行すると"/"ページへのURLが生成される
 
+  resource :timeline, only: [:show] #タイムラインは一人一つなので単数
+
   # get '/' => 'home#index'
   # ↑ブラウザからサーバーへゲットリクエストが来た時にhomecontrollerのindexメソッドを実行。rootがあるのでコメントアウト
   #get '/about' => 'home#about' # 同上でaboutメソッドを実行
@@ -22,6 +24,11 @@ Rails.application.routes.draw do
   # destroyの追加でDELETEリクエストが追加される。
 
     resource :like, only: [:create, :destroy] #destroyのしやすさ重視で単数。いいねは中間テーブルに新たなデータを作る作業なのでcreate。
+end
+
+resources :accounts, only: [:show] do  #各ユーザーのプロフィールページに遷移できるように設定。userのURLはdeviseが使用しているので便宜的にaccountsとする。
+  resources :follows, only: [:create] #フォロー機能を実装するために設定。
+  resources :unfollows, only: [:create] #フォロー外す用。fllouwsにデストロイを追加する方法を採用しない理由として、railsのシンプルに設計したい思想を意識。
 end
   resource :profile, only: [:show, :edit, :update] #プロフィールは一人一つなので単数で作成。URLもindexが作成されない。
   resources :favorites, only: [:index]
