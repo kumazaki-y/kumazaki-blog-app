@@ -30,6 +30,16 @@ class User < ApplicationRecord
   has_many :favorite_articles, through: :likes, source: :article #ユーザーと記事を中間テーブルを介して紐づける。
   #favorite_artclesテーブルは存在しないが、articlesにした場合の混同を避けるためこのように記述。sourceでテーブル名を記載。
 
+  has_many :following_relationships, foreign_key: 'follower_id', class_name: 'Relationship', dependent: :destroy #中間テーブルと自分を紐付け
+  has_many :followings, through: :following_relationships, source: :following #中間テーブルを介して自分以外のユーザーと紐付け。sourceでどのカラムと紐づけるか指定。
+  #following_relationshipsは自分がフォローしている、の意味で命名（どのモデルか判断できないのでクラス名を指定する必要がある）。
+  #「自分がフォロワーになっている＝自分がフォローしているユーザー」なので外部キーはfollower_idとする。
+
+  has_many :follower_relationships, foreign_key: 'following_id', class_name: 'Relationship', dependent: :destroy
+  has_many :followers, through: :follower_relationships, source: :follower
+  #逆に自分のフォロワーになっているユーザーの情報と紐付け。今回は「自分以外のユーザーから見たら」という視点で紐付けする。
+  #「自分をフォローしている＝自分のフォロワーのユーザー」なので外部キーはfollowingとする。followerの値は自分。
+
   delegate :birthday, :age, :gender, to: :profile, allow_nil: true
   #これを書くことで下記のメソッドを定義するのと同様の効果がある。allow_nil:trueが&と同様のぼっち演算子の役割を持つ
   # def birthday
@@ -52,6 +62,22 @@ class User < ApplicationRecord
     #↑ユーザーの存在有無による制限をDBディレクトリに記述したのでhamlからは削除した
   end
 
+  def follow!(user)
+    user_id = get_user_id(user)
+    following_relationships.create!(following_id: user_id)#followerIDは自分の外部キーなので、followingを取得することでフォロー関係が成立する。
+  end
+
+  def unfollow!(user) #例外処理が組み込まれてますよと表現するためにメソッド名にも！をつけている
+    user_id = get_user_id(user)
+    relation = following_relationships.find_by!(following_id: user_id)#ユーザーが存在しないとフォローできないので、これらのメソッドには！をつける
+    relation.destroy! #先にfind_byで削除したい値を見つけてからデストロイする。
+  end
+
+  def has_followed?(user) #フォローしているか確認するメソッドを設定。
+    following_relationships.exists?(following_id: user.id)
+  end
+
+
   def prepare_profile
     profile || build_profile #||はor。既にprofileがあればそれを表示、無ければ空の箱を作る。
   end
@@ -63,6 +89,15 @@ class User < ApplicationRecord
     else
       'default-avatar.png'
     end
+  end
+
+  private #プライベートメソッドはこのファイル内でしか使用できない。
+  def get_user_id(user)
+    if user.is_a?(User)#userはUserクラスのインスタンスかを確認。
+      user.id
+    else
+      user #Userクラスのインスタンスでなかった場合に、userの情報（ID）をそのまま渡すように設定。つまり、別のコントローラーでuseridを渡す設定ができていない時でもidを渡せるようになる。
+    end #たとえばuserIDが’２’という文字列だったとしても、そのまま渡してIDを取得できる。
   end
 
 end

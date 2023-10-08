@@ -1,16 +1,4 @@
-.container.profilePage
-  .profilePage_user
-    .profilePage_user_image
-      = image_tag current_user.avatar_image
-    .profilePage_user_basicInfo
-      .profilePage_user_name
-        .profilePage_user_displayName
-          #{current_user.display_name}（#{current_user.age}・#{I18n.t("enum.genders.#{current_user.gender}")}）
-        -#ログイン中ユーザーについて「名前（生年月日・性別）」の形式で表示。rubyのコードを埋め込む書き方
-        .profilePage_user_actionButton
-          = link_to 'Edit', edit_profile_path
-      .profilePage_user_introduction
-        = current_user.profile&.introduction
+= render 'commons/profile', user: current_user
 
-  - current_user.articles.each do |article|
-    = render 'commons/article', article: article
+-# コモンファイルから部分テンプレートを読み込んで表示する。読ん込んだコード内の「user」はcurrent_userに置き換えて表示するように設定。
+-# 別のページでは別の単語に置き換えることで部分テンプレートを共有しながら微妙に異なるページを作成できる。
