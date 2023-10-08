@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # rootは”/”を意味する。特に指定がなければhomecontrollerのindexメソッドを実行。
   # また、html.erbでroot_pathメソッドを実行すると"/"ページへのURLが生成される
 
+  resource :timeline, only: [:show] #タイムラインは一人一つなので単数
+
   # get '/' => 'home#index'
   # ↑ブラウザからサーバーへゲットリクエストが来た時にhomecontrollerのindexメソッドを実行。rootがあるのでコメントアウト
   #get '/about' => 'home#about' # 同上でaboutメソッドを実行

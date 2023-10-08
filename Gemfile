@@ -30,6 +30,8 @@ gem 'annotate' # データベースの内容を取り込んでarticle.rbにコ�
 gem 'hamlit' # hamlを読み込みrailsで記述できるようにする。
 # 記述後にターミナルで「bundle install」「rails g annotate:install」「rails db:migrate」の順に実行
 
+gem 'active_decorator' #viewに関するメソッドをまとめられる。helperよりも直感的に記述できる。「rails g decotator　〇〇」でdecoratorファイルを作成できる。
+
 gem 'devise'
 # gemのインストール、railsでの設定、DBからデータを取得をそれぞれ行っている
 
