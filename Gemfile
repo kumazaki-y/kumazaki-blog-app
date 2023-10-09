@@ -32,6 +32,8 @@ gem 'hamlit' # hamlを読み込みrailsで記述できるようにする。
 
 gem 'active_decorator' #viewに関するメソッドをまとめられる。helperよりも直感的に記述できる。「rails g decotator　〇〇」でdecoratorファイルを作成できる。
 
+gem 'active_model_serializers' #jsにデータを渡す際に通常はすべてのデータが一斉に送られるが、これがあるとserializerファイルに指定した特定の情報だけ渡せるようになる。
+
 gem 'devise'
 # gemのインストール、railsでの設定、DBからデータを取得をそれぞれ行っている
 

@@ -30,14 +30,20 @@
 
 .article
   %h2 コメント一覧
-  - @comments.each do |comment|
-    .article_comment
-      %p= comment.content
+  .comments-container
+  -# - @comments.each do |comment|
+  -#   .article_comment
+  -#     %p= comment.content　jsで表示するため不要になりコメントアウト
 
 
 .container
-  = link_to new_article_comment_path(@article) do
-    .btn-secondary
+  .btn-secondary.show-comment-form
+    コメントを追加
+    -#↑をクリックしたら↓が表示されるようにjsでイベント処理を書く。jsで書くためのクラスを追加する。
+  .comment-text-area.hidden
+    = text_area_tag :comment_content, '', class: 'sm'
+    -#htmlのテキストエリアを生成するhelperタグ。name（キー）は適当。初期値は空。
+    .btn-secondary.add-comment-button
       コメントを追加
 
 = javascript_pack_tag 'article'
