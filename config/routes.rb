@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   # GETは取得、PUTは更新（または作成）、PATCHは部分更新、DELETEは削除
   # destroyの追加でDELETEリクエストが追加される。
 
-    resource :like, only: [:create, :destroy] #destroyのしやすさ重視で単数。いいねは中間テーブルに新たなデータを作る作業なのでcreate。
+    resource :like, only: [:show, :create, :destroy] #destroyのしやすさ重視で単数。いいねは中間テーブルに新たなデータを作る作業なのでcreate。
 end
 
 resources :accounts, only: [:show] do  #各ユーザーのプロフィールページに遷移できるように設定。userのURLはdeviseが使用しているので便宜的にaccountsとする。
