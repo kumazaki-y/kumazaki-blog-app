@@ -64,6 +64,8 @@ group :development do
   gem 'erb2haml' # 記述したerbをhamlに変換する。「bundle exec rake haml:replace_erbs」をターミナルで実行すると変換が行われる。
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'letter_opener' #メールを開くためのgem
+  gem 'letter_opener_web', '~> 1.0' #ブラウザでメールを開くためのgem
 end
 
 group :test do
