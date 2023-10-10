@@ -1,4 +1,5 @@
-.article
+.article#article-show{data: {article_id: @article.id}}
+  -#article-showというidを追加し、さらにarticle_idのdataとして現在の記事のIDを渡すように設定。このdataをjsで取得すれば現在どの記事を開いているかjs側で認識できる。
   - if @article.eyecatch.attached?
     -#UPされた画像があればそれを表示。なければデフォルトに。
     .article_image
@@ -20,23 +21,30 @@
   .article_content
     = @article.content
   - if user_signed_in?
-    - if current_user.has_liked?(@article)
-      .article_heart
-        = link_to article_like_path(@article), data: { method: 'delete' } do
-          = image_tag 'heart-active.svg'
-    - else
-      .article_heart
-        = link_to article_like_path(@article), data: { method: 'post' } do
-          = image_tag 'heart.svg'
+    .article_heart.hidden.active-heart
+      = image_tag 'heart-active.svg'
+    .article_heart.hidden.inactive-heart
+      = image_tag 'heart.svg'
+-#いいねの表示をJSで行うように変更。Rubyのコードがあると動かないのでif文を削除し、hiddenとactiveクラスを追加。常に隠しておき、いいねがtureだったらhiddenクラスを削除して表示されるようにapplication.jsに記載。
+-#さらにいいねした時にリンクからリダイレクトしていた処理をjsによる処理に変更。
 
 .article
   %h2 コメント一覧
-  - @comments.each do |comment|
-    .article_comment
-      %p= comment.content
+  .comments-container
+  -# - @comments.each do |comment|
+  -#   .article_comment
+  -#     %p= comment.content　jsで表示するため不要になりコメントアウト
 
 
 .container
-  = link_to new_article_comment_path(@article) do
-    .btn-secondary
+  .btn-secondary.show-comment-form
+    コメントを追加
+    -#↑をクリックしたら↓が表示されるようにjsでイベント処理を書く。jsで書くためのクラスを追加する。
+  .comment-text-area.hidden
+    = text_area_tag :comment_content, '', class: 'sm'
+    -#htmlのテキストエリアを生成するhelperタグ。name（キー）は適当。初期値は空。
+    .btn-secondary.add-comment-button
       コメントを追加
+
+= javascript_pack_tag 'article'
+-# view表示に関するjsファイルを読み込む。jsサーバー要再起動。

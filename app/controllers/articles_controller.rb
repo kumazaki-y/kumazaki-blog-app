@@ -16,9 +16,9 @@ class ArticlesController < ApplicationController # APから継承。DAY８の処
   # end
 
   def show
-    @comments = @article.comments #beforeアクションで定義されている@articleを使い、インスタンスに取得した記事とコメントを紐付けて代入
-    #↓before_actionを設定しているので不要。
-    # @article = Article.find(params[:id]) #ArticleモデルDBから指定されたIDのデータを取得する。paramsはパラメータ的な意味。:idと記載するルール
+    #↓jsを使用して表示するので不要になりコメントアウト
+    # @comments = @article.comments #beforeアクションで定義されている@articleを使い、インスタンスに取得した記事とコメントを紐付けて代入
+
   end
 
   def new
@@ -75,6 +75,6 @@ class ArticlesController < ApplicationController # APから継承。DAY８の処
   end
 
   def set_article # before_actionで指定する繰り返し使いたいコードを内包したメソッド
-    @article = Article.find(params[:id])
+    @article = Article.find(params[:id])#ArticleモデルDBから指定されたIDのデータを取得する。paramsはパラメータ的な意味。:idと記載するルール
   end
 end

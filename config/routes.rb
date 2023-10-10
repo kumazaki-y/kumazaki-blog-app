@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   #get '/about' => 'home#about' # 同上でaboutメソッドを実行
 
   resources :articles do
-    resources :comments, only: [:new, :create] #入れ子にすることでarticles/comenntsのようなURLを作れる。
+    resources :comments, only: [:index, :new, :create] #入れ子にすることでarticles/comenntsのようなURLを作れる。
   # , only: [:show, :new, :create, :edit, :update, :destroy]
   # ↑onlyで限定していたが、最終的にindex以外はすべて使っているのでonly不要。refactoring（コードの整理）作業によりコメントアウト
   # resourcesはURLを作成する機能。onlyを書くと、様々な機能のURLが作成されるがその中で指定したものだけを使用する意味になる
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   # GETは取得、PUTは更新（または作成）、PATCHは部分更新、DELETEは削除
   # destroyの追加でDELETEリクエストが追加される。
 
-    resource :like, only: [:create, :destroy] #destroyのしやすさ重視で単数。いいねは中間テーブルに新たなデータを作る作業なのでcreate。
+    resource :like, only: [:show, :create, :destroy] #destroyのしやすさ重視で単数。いいねは中間テーブルに新たなデータを作る作業なのでcreate。
 end
 
 resources :accounts, only: [:show] do  #各ユーザーのプロフィールページに遷移できるように設定。userのURLはdeviseが使用しているので便宜的にaccountsとする。
