@@ -1,0 +1,27 @@
+.container.profilePage
+  .profilePage_user
+    .profilePage_user_image
+      = image_tag user.avatar_image
+    .profilePage_user_basicInfo
+      .profilePage_user_name
+        .profilePage_user_displayName
+          #{user.display_name}（#{user.age || '？歳'}・#{I18n.t("enum.genders.#{user.gender || 'unknown'}")}）
+        -#ログイン中ユーザーについて「名前（生年月日・性別）」の形式で表示。rubyのコードを埋め込む書き方
+        .profilePage_user_actionButton
+          - if user == current_user
+            = link_to 'Edit', edit_profile_path
+          - else
+            - if current_user&.has_followed?(user)
+              = link_to 'Unfollow', account_unfollows_path(user), data: {method: 'post'}
+            - else
+              = link_to 'Follow', account_follows_path(user), data: {method: 'post'}
+      .profilePage_user_introduction
+        = user.profile&.introduction
+
+  - user.articles.each do |article|
+    = render 'commons/article', article: article
+
+    -#自分と他人のプロフィールページを共通化
+    -#年齢が未入力なら「？歳」と表示されるように設定。性別も同様の設定（enum.ja.yamlファイルにも「unknown: '性別未入力'」の記載追加が必要）。
+    -#ログイン中のユーザー自身のページだったら編集ボタンが、他者のページだったらフォローボタンが表示されるように設定。
+    -#フォローしてたらボタン表示が変わるように設定。ぼっち演算子にしないとログインしていない時にエラーになる
