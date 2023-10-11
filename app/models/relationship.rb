@@ -26,7 +26,7 @@ class Relationship < ApplicationRecord
 
     private
     def send_email #フォローが発生した時にメール送信するメソッドを定義。ここに書いておくことで、個別のコントローラで複数のフォロー機能が合っても、それらすべてに送付機能を与えられる。
-      RelationshipMailer.new_follower(following, follower).deliver_now #deliver_nowはメールを送信するメソッド
+        RelationshipMailer.new_follower(following, follower).deliver_later #deliverはメールを送信するメソッド。nowは同期処理・laterは非同期処理
     end
 
 end

@@ -1,5 +1,7 @@
-Rails.application.routes.draw do
+require 'sidekiq/web'
 
+Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq' if Rails.env.development? #sidekiq上のジョブ状況を見れるように設定
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development? #デベロップ環境で指定のURLにアクセスするとメールが見れるようになる設定
 
   devise_for :users
