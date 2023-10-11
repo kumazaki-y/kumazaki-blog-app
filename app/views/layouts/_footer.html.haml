@@ -1,0 +1,8 @@
+%footer.footer-container
+  - if I18n.locale == :en
+    = link_to '日本語', url_for(locale: :ja)
+  - else
+    = link_to 'English', url_for(locale: :en)
+
+-# もしURLがen設定なら日本語を、それ以外なら英語を表示
+-# url_forはURLのパラメータだけ変更させる。

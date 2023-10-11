@@ -1,0 +1,6 @@
+ja:
+  articles:
+    comment_list: 'コメント一覧'
+
+#切り替えたい言語ごとにファイルを作成し、上記のように設定する。
+# hamlには「%h2= I18n.t('articles.comment_list')」と書く。localesのarticlesのcomment_listから表示文を取得するように指定
