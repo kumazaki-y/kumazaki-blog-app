@@ -38,6 +38,7 @@ gem 'devise'
 # gemのインストール、railsでの設定、DBからデータを取得をそれぞれ行っている
 
 gem 'aws-sdk-s3', require: false #AWSにアップロードできるようになる
+gem 'sidekiq' #非同期処理できるようになる。RedisのDBを起動する必要あり。
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
