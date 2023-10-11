@@ -1,0 +1,6 @@
+%p #{@user.email} さん
+%p 以下のユーザにフォローされました。
+
+= link_to 'プロフィールを確認する', account_url(@follower)
+-# account_path（'/user')とaccont_url('http://localhost:3000/users')の違い。
+-# アプリ内だけならパスで指定すればページ遷移できるが、Gmail等でリンクを送付する場合はurlにしないと表示できない。
