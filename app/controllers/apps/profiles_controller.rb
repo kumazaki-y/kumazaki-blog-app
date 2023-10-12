@@ -1,5 +1,4 @@
-class ProfilesController < ApplicationController
-    before_action :authenticate_user! #ログインしていないと処理が実行されない。
+class Apps::ProfilesController < Apps::ApplicationController
 
     def show
         @profile = current_user.profile
