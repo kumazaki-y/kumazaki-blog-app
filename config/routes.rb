@@ -10,16 +10,34 @@ Rails.application.routes.draw do
   # rootは”/”を意味する。特に指定がなければhomecontrollerのindexメソッドを実行。
   # また、html.erbでroot_pathメソッドを実行すると"/"ページへのURLが生成される
 
-  resource :timeline, only: [:show] #タイムラインは一人一つなので単数
-
   # get '/' => 'home#index'
   # ↑ブラウザからサーバーへゲットリクエストが来た時にhomecontrollerのindexメソッドを実行。rootがあるのでコメントアウト
   #get '/about' => 'home#about' # 同上でaboutメソッドを実行
 
-  resources :articles do
-    resources :comments, only: [:index, :new, :create] #入れ子にすることでarticles/comenntsのようなURLを作れる。
-  # , only: [:show, :new, :create, :edit, :update, :destroy]
-  # ↑onlyで限定していたが、最終的にindex以外はすべて使っているのでonly不要。refactoring（コードの整理）作業によりコメントアウト
+  resources :articles
+
+  resources :accounts, only: [:show] do  #各ユーザーのプロフィールページに遷移できるように設定。userのURLはdeviseが使用しているので便宜的にaccountsとする。
+    resources :follows, only: [:create] #フォロー機能を実装するために設定。
+    resources :unfollows, only: [:create] #フォロー外す用。fllouwsにデストロイを追加する方法を採用しない理由として、railsのシンプルに設計したい思想を意識。
+  end
+
+  scope module: :apps do #controllerを「apps/〇〇〜」となるように変更。URLにappsを加える必要性がない。そういう時は利用者の混乱を避けるためにモジュールを使うという思想
+    resources :favorites, only: [:index]
+    resource :timeline, only: [:show]#タイムラインは一人一つなので単数
+
+    resource :profile, only: [:show, :edit, :update]#プロフィールは一人一つなので単数で作成。URLもindexが作成されない。
+  end
+
+  namespace :api, defaults: {format: :json} do #apiに関するものだとわかるようにURLとコントローラーディレクトリを変更できる。formatはjsonを指定するとjsで動くようになる。
+    scope '/articles/:article_id' do #URLだけを変更できる
+      resources :comments, only: [:index, :create]
+      resource :like, only: [:show, :create, :destroy]#destroyのしやすさ重視で単数。いいねは中間テーブルに新たなデータを作る作業なのでcreate。
+    end
+  end
+end
+
+
+ #入れ子にすることでarticles/comenntsのようなURLを作れる。
   # resourcesはURLを作成する機能。onlyを書くと、様々な機能のURLが作成されるがその中で指定したものだけを使用する意味になる
   # それぞれarticles_controllerの同名メソッドが実行される
   # newは新しい投稿を作成するためのフォームとしてrailsのCRUDに含まれている
@@ -27,14 +45,3 @@ Rails.application.routes.draw do
   # PUTとPATCHのURLは共にGETリクエストと同じだが、URLは同じでもリクエスト内容が異なるのでサーバー側での挙動も異なる。
   # GETは取得、PUTは更新（または作成）、PATCHは部分更新、DELETEは削除
   # destroyの追加でDELETEリクエストが追加される。
-
-    resource :like, only: [:show, :create, :destroy] #destroyのしやすさ重視で単数。いいねは中間テーブルに新たなデータを作る作業なのでcreate。
-end
-
-resources :accounts, only: [:show] do  #各ユーザーのプロフィールページに遷移できるように設定。userのURLはdeviseが使用しているので便宜的にaccountsとする。
-  resources :follows, only: [:create] #フォロー機能を実装するために設定。
-  resources :unfollows, only: [:create] #フォロー外す用。fllouwsにデストロイを追加する方法を採用しない理由として、railsのシンプルに設計したい思想を意識。
-end
-  resource :profile, only: [:show, :edit, :update] #プロフィールは一人一つなので単数で作成。URLもindexが作成されない。
-  resources :favorites, only: [:index]
-end

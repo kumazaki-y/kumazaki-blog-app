@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => { //railsは「DOMContentLoa
     const dataset = $('#article-show').data() //まずarticle-showのdataを取得する。このdataの値には記事のIDと同じ値が入っている。
     const articleId = dataset.articleId //さらに記事のIDも取得する。
 
-    axios.get(`/articles/${articleId}/comments`) //コメントのURLにリクエスト
+    axios.get(`/api/articles/${articleId}/comments`) //コメントのURLにリクエスト
     .then((response) => {
       const comments = response.data //レスポンスからコメントデータを取得
       comments.forEach((comment) => { //each文でデータを個々に抜き出し繰り返しイベント内の処理を実行。
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => { //railsは「DOMContentLoa
         if (!content) { //もしコンテントに値が無ければ
           window.alert('コメントを入力してください') //アラートを表示する
         } else { //値があれば
-          axios.post(`/articles/${articleId}/comments`, { //対象URLにPOSTリクエストを送り
+          axios.post(`/api/articles/${articleId}/comments`, { //対象URLにPOSTリクエストを送り
             comment: {content: content} //送信データはコメントコントローラーで指定されているparamsの値が{comment: {content: 'aaa'}}のようになっているので同様に記述。
           })
             .then((res) => { //処理ができたら
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => { //railsは「DOMContentLoa
     
 
 
-    axios.get(`/articles/${articleId}/like`) //axiosでdataと記事IDのURLにGETリクエストを送る。
+    axios.get(`/api/articles/${articleId}/like`) //axiosでdataと記事IDのURLにGETリクエストを送る。
       .then((response) => {
         console.log(response)
         const hasLiked = response.data.hasLiked //検証ツールのコンソールのXHRでresponseのdataを確認するとhasLikedのハッシュ（jsにおいてはオブジェクト）が存在するので取得する。

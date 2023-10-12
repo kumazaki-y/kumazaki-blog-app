@@ -1,5 +1,4 @@
-class TimelinesController < ApplicationController
-    before_action :authenticate_user!
+class Apps::TimelinesController < Apps::ApplicationController
 
     def show
         user_ids = current_user.followings.pluck(:id) #pluckで指定した値だけを取得できる。今回はログイン中ユーザーがフォローしているユーザーのIDを取得

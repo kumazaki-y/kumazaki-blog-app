@@ -4,7 +4,7 @@ import axios from 'modules/axios' //長ったらしいコードをaxios.jsにま
 
 const listenInactiveHeartEvent = (articleId) => { //メソッドを定義する
     $('.inactive-heart').on('click', () => { //対象クラスの要素をクリックした時に
-        axios.post(`/articles/${articleId}/like`) //該当のURLにPOSTリクエストを送り
+        axios.post(`/api/articles/${articleId}/like`) //該当のURLにPOSTリクエストを送り
             .then((response) => { //うまく処理できた場合
             if (response.data.status === 'ok') { //もしresponseがokなら
                 $('.active-heart').removeClass('hidden') //対象クラスからhiddenを消して表示する
@@ -21,7 +21,7 @@ const listenInactiveHeartEvent = (articleId) => { //メソッドを定義する
 
 const listenActiveHeartEvent = (articleId) => {
     $('.active-heart').on('click', () => {
-        axios.delete(`/articles/${articleId}/like`)
+        axios.delete(`/api/articles/${articleId}/like`)
         .then((response) => {
             if (response.data.status === 'ok') {
             $('.active-heart').addClass('hidden')

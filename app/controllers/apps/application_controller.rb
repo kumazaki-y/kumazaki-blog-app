@@ -1,0 +1,3 @@
+class Apps::ApplicationController < ApplicationController #ログインしてないとダメ！というコードを各ファイルに書くのは書き忘れ等の事故につながるので一括管理
+    before_action :authenticate_user! #これでこのファイルを継承したファイルにはすべてビフォーアクションがつく。viewファイルにもappsフォルダを作りファイルを配下に入れないと読み込めない
+  end

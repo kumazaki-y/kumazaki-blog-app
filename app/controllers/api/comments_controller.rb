@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class Api::CommentsController < Api::ApplicationController #ディレクトリを移動したらディレクトリ名を書くルール
 
   def index
     article = Article.find(params[:article_id])
@@ -7,10 +7,10 @@ class CommentsController < ApplicationController
   end
 
 
-    def new
-        article = Article.find(params[:article_id]) #article_idを引数にして記事情報を取得する
-        @comment = article.comments.build #取得した記事に紐づくコメントを作成するメソッドをインスタンスへ
-    end
+    # def new
+    #     article = Article.find(params[:article_id]) #article_idを引数にして記事情報を取得する
+    #     @comment = article.comments.build #取得した記事に紐づくコメントを作成するメソッドをインスタンスへ
+    # end
 
     def create
         article = Article.find(params[:article_id]) #記事をarticle_idで検索して取得
