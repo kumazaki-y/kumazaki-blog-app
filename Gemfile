@@ -55,6 +55,8 @@ group :development, :test do
   gem 'binding_of_caller'#エラーメッセージの画面でconsoleを実行できるようになるライブラリ
   gem 'rubocop-rails' # ターミナルで「bundle install」後、vendorディレクトリに.rubocop.ymlを作成。そこにコードチェックの基準を記述する。
   gem 'dotenv-rails' #環境変数について設定するライブラリ。configのappファイルにも設定記述が必要。
+  gem 'rspec-rails' #テストを行うためのライブラリ。「rails g rspec:install」で必要なツールを作成。「rails g rspec:model article」等でテストしたいファイルを作成。
+  gem 'factory_bot_rails' #ダミーデータを作成する。「spec/rails_helper.rb」に「config.include FactoryBot::Syntax::Methods」の記載が必要。
 end
 
 group :development do
