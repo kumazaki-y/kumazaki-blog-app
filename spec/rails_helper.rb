@@ -63,5 +63,5 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include FactoryBot::Syntax::Methods #factory_botを読み込むのに必要
-
+  config.include Devise::Test::IntegrationHelpers, type: :request #deviseを読み込み、spec内で機能を使える
 end
