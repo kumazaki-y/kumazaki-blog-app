@@ -1,4 +1,4 @@
-import $ from 'jquery' //膨大なモジュールの中からjqueryを読み込み使用できるようになる
+import $, { escapeSelector } from 'jquery' //膨大なモジュールの中からjqueryを読み込み使用できるようになる
 import axios from 'modules/axios' //長ったらしいコードをaxios.jsにまとめて、そこからインポート
 
 import {
@@ -24,7 +24,7 @@ const handleHeartDisplay = (hasLiked) => { //コードの可読性を上げる�
   
   const appendNewComment = (comment) => {
     $('.comments-container').append( //対象クラスにhtml要素を追加するメソッド
-    `<div class="article_comment"><p>${comment.content}</p></div>` //コメントを表示する。
+    `<div class="article_comment"><p>${escapeSelector(comment.content)}</p></div>` //コメントを表示する。escapeがあるとxss攻撃へのセキュリティ対策になる。
   )
   }
 
